@@ -7,7 +7,7 @@ import { sanityClient } from '@sanity/client';
 
 //const allCategories = ['all', ...new Set(items.map((item) => item.category))];
 
-function App() {
+const App = () => {
 
   const [menuItemsData, setMenuData] = useState(null);
 
