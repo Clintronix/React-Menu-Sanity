@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Menu from './Menu';
+
 import Categories from './Categories';
 //import items from './data';
 import sanityClient from './Client';
@@ -19,9 +19,7 @@ const App = () => {
           <div className="underline"></div>
         </div>
         <Categories />
-        <Menu />
       </section>
-      
     </main>
   )
 }

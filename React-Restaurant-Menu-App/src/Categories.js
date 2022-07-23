@@ -2,6 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import sanityClient from './Client'
 
+import Menu from './Menu';
+
 const filterItems = (cat)=> {
   if (cat == 'all') {
     
@@ -15,14 +17,17 @@ const Categories = () => {
 
   useEffect(() => {
       sanityClient
-          .fetch(`*[_type == "category"] {
+          .fetch(`*[_type == "category"] | order(title asc) {
               title,
           }`
       )
       .then((data) => setCategory(data))
       .catch(console.error)
   }, []);
+
+
   return (
+    <>
     <div className="btn-container">
       {categoryData && categoryData.map((category, index) => {
         return (
@@ -30,13 +35,16 @@ const Categories = () => {
             type='button'
             className='filter-btn'
             key={ index }
-            // onClick={ filterItems(category[index]) }
+            // send category clicked to filter Items
+            //onClick={ filterItems(category[index]) }
           >
             {category.title}
           </button>
         )
       })}
     </div>
+    <Menu />
+    </>
   )
 };
 

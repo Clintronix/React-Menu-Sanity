@@ -7,7 +7,7 @@ const Menu = () => {
 
   useEffect(() => {
       sanityClient
-          .fetch(`*[_type == "menuItems"] | order(_createdAt desc) {
+          .fetch(`*[_type == "menuItems" && title == "break"] | order(_createdAt desc) {
               title,
               itemCategory,
               mainImage{
@@ -25,13 +25,6 @@ const Menu = () => {
       .then((data) => setMenuData(data))
       .catch(console.error)
   }, []);
-
-  const filterItems = (cat)=> {
-    if (cat == 'all') {
-      
-      return;
-    }
-  }
 
   return (
     <div className="section-center">
