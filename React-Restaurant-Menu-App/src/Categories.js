@@ -1,9 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
 import sanityClient from './Client'
 
-const Categories = ({ filterItems }) => {
+const filterItems = (cat)=> {
+  if (cat == 'all') {
+    
+    return;
+  }
+}
+
+const Categories = () => {
 
   const [categoryData, setCategory] = useState(null);
 
@@ -16,7 +22,6 @@ const Categories = ({ filterItems }) => {
       .then((data) => setCategory(data))
       .catch(console.error)
   }, []);
-  console.log("category: " +  categoryData)
   return (
     <div className="btn-container">
       {categoryData && categoryData.map((category, index) => {
@@ -25,7 +30,7 @@ const Categories = ({ filterItems }) => {
             type='button'
             className='filter-btn'
             key={ index }
-            onClick={() => filterItems(category.title)}
+            // onClick={ filterItems(category[index]) }
           >
             {category.title}
           </button>
@@ -35,4 +40,4 @@ const Categories = ({ filterItems }) => {
   )
 };
 
-export default { Categories };
+export default Categories;

@@ -1,13 +1,41 @@
 import React from 'react';
-// import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import sanityClient from './Client'
 
-// import sanityClient from './Client'
+const Menu = () => {
+  const [menuItemsData, setMenuData] = useState(null);
 
-const Menu = ({ menuItems }) => {
+  useEffect(() => {
+      sanityClient
+          .fetch(`*[_type == "menuItems"] | order(_createdAt desc) {
+              title,
+              itemCategory,
+              mainImage{
+                asset->{
+                    _id,
+                    url
+                },
+                alt
+              },
+              categories,
+              price,
+              description,
+          }`
+      )
+      .then((data) => setMenuData(data))
+      .catch(console.error)
+  }, []);
+
+  const filterItems = (cat)=> {
+    if (cat == 'all') {
+      
+      return;
+    }
+  }
 
   return (
     <div className="section-center">
-      {menuItems && menuItems.map((item, index) => {
+      {menuItemsData && menuItemsData.map((item, index) => {
         return (
           <article key={ index } className="menu-item">
            <img className='photo' src={item.mainImage.asset.url} alt={item.alt} />
