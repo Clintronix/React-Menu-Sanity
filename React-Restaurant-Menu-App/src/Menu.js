@@ -2,12 +2,25 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import sanityClient from './Client'
 
-const Menu = () => {
+const Menu = (props) => {
   const [menuItemsData, setMenuData] = useState(null);
+  const [queryData, setCurrCat] = useState({
+    fetch: '*[_type == "menuItems"] | order(_createdAt desc) '
+  });
+
+  // const handleQuery = (cat)=> {
+  //   let currCat;
+  //   if ((props.data === 'Breakfast') && !(currCat == "Breakfast")) {
+  //     setCurrCat('*[_type == "menuItems"] && itemCategory === ' + cat + '| order(_createdAt desc) ')
+  //   }
+  //   currCat = cat;
+  // }
+  // handleQuery(props.data)
+
 
   useEffect(() => {
       sanityClient
-          .fetch(`*[_type == "menuItems" && title == "break"] | order(_createdAt desc) {
+          .fetch(queryData.fetch + `{
               title,
               itemCategory,
               mainImage{

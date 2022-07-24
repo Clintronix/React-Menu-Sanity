@@ -4,17 +4,12 @@ import sanityClient from './Client'
 
 import Menu from './Menu';
 
-const filterItems = (cat)=> {
-  if (cat == 'all') {
-    
-    return;
-  }
-}
-
-const Categories = () => {
+const Categories = (props) => {
 
   const [categoryData, setCategory] = useState(null);
+  const [newCatData, setnewCat] = useState("All");
 
+  console.log('StateData  ' + newCatData)
   useEffect(() => {
       sanityClient
           .fetch(`*[_type == "category"] | order(title asc) {
@@ -25,7 +20,12 @@ const Categories = () => {
       .catch(console.error)
   }, []);
 
-
+  const handleClick = (event, key)=> {
+    let newCat = event.target.innerText;
+    console.log("handleClick  " + newCat)
+    setnewCat(newCat);
+  }
+  
   return (
     <>
     <div className="btn-container">
@@ -36,14 +36,14 @@ const Categories = () => {
             className='filter-btn'
             key={ index }
             // send category clicked to filter Items
-            //onClick={ filterItems(category[index]) }
+            onClick={ (event) => handleClick(event)}
           >
             {category.title}
           </button>
         )
       })}
     </div>
-    <Menu />
+    <Menu data={newCatData}/>
     </>
   )
 };

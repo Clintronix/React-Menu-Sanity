@@ -4,6 +4,7 @@ import Categories from './Categories';
 //import items from './data';
 import sanityClient from './Client';
 //import menu from './data';
+import Menu from './Menu';
 
 //const allCategories = ['all', ...new Set(items.map((item) => item.category))];
 
